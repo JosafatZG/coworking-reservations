@@ -46,4 +46,18 @@ public class Space extends Auditable {
         this.location = location;
         this.hourlyRate = hourlyRate;
     }
+
+    public void update(
+            String name,
+            SpaceType type,
+            Integer capacity,
+            String location,
+            BigDecimal hourlyRate) {
+
+        this.name = name;
+        this.type = type;
+        this.capacity = capacity;
+        this.location = location;
+        this.hourlyRate = hourlyRate;
+    }
 }

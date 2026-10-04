@@ -1,24 +1,31 @@
 spring:
-  datasource:
-    url: jdbc:h2:mem:coworking
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+  application:
+    name: coworking-reservations
+
+  profiles:
+    default: dev
 
   jpa:
-    hibernate:
-      ddl-auto: create-drop
     open-in-view: false
-    properties:
-      hibernate:
-        format_sql: true
 
-  h2:
-    console:
-      enabled: true
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+          - metrics
+          - circuitbreakers
+
+  endpoint:
+    health:
+      show-details: when_authorized
 
 app:
   security:
     jwt:
-      secret: ${JWT_SECRET}
       expiration: 3600000
