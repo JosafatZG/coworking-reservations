@@ -75,7 +75,7 @@ class OccupancyReportServiceTest {
         assertEquals(1, result.size());
         assertEquals(
                 new BigDecimal("20.00"),
-                result.getFirst().occupancyPercentage()
+                result.get(0).occupancyPercentage()
         );
     }
 
@@ -106,7 +106,7 @@ class OccupancyReportServiceTest {
 
         assertEquals(
                 new BigDecimal("20.00"),
-                result.getFirst().occupancyPercentage()
+                result.get(0).occupancyPercentage()
         );
     }
 
@@ -131,7 +131,7 @@ class OccupancyReportServiceTest {
 
         assertEquals(
                 new BigDecimal("0.00"),
-                result.getFirst().occupancyPercentage()
+                result.get(0).occupancyPercentage()
         );
     }
 
@@ -162,7 +162,7 @@ class OccupancyReportServiceTest {
 
         assertEquals(
                 new BigDecimal("20.00"),
-                result.getFirst().occupancyPercentage()
+                result.get(0).occupancyPercentage()
         );
     }
 
@@ -187,7 +187,7 @@ class OccupancyReportServiceTest {
 
         assertEquals(
                 new BigDecimal("0.00"),
-                result.getFirst().occupancyPercentage()
+                result.get(0).occupancyPercentage()
         );
     }
 
@@ -279,7 +279,7 @@ class OccupancyReportServiceTest {
 
         assertEquals(
                 new BigDecimal("15.00"),
-                result.getFirst().occupancyPercentage()
+                result.get(0).occupancyPercentage()
         );
     }
 
