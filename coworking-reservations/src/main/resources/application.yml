@@ -43,6 +43,13 @@ app:
     caffeine:
       spec: maximumSize=100,expireAfterWrite=10m
 
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    display-request-duration: true
+  api-docs:
+    path: /v3/api-docs
+
 resilience4j:
   circuitbreaker:
     instances:
