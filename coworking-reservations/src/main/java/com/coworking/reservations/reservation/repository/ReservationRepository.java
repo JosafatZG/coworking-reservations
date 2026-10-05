@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,5 +51,20 @@ public interface ReservationRepository
             @Param("startDateTime") LocalDateTime startDateTime,
             @Param("endDateTime") LocalDateTime endDateTime,
             @Param("activeStatuses") List<ReservationStatus> activeStatuses
+    );
+
+    @Query("""
+    SELECT r
+    FROM Reservation r
+    WHERE r.status IN :statuses
+      AND r.startDateTime < :endDateTime
+      AND r.endDateTime > :startDateTime
+    ORDER BY r.startDateTime
+    """)
+    @EntityGraph(attributePaths = {"space"})
+    List<Reservation> findOverlappingByDateRange(
+            @Param("startDateTime") LocalDateTime startDateTime,
+            @Param("endDateTime") LocalDateTime endDateTime,
+            @Param("statuses") Collection<ReservationStatus> statuses
     );
 }

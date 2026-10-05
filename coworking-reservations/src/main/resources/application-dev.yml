@@ -23,5 +23,5 @@ app:
 
   payment:
     mock:
-      mode: FAILURE
+      mode: SUCCESS
       delay: 0ms

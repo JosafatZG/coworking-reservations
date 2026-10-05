@@ -9,6 +9,7 @@ import com.coworking.reservations.space.entity.Space;
 import com.coworking.reservations.space.mapper.SpaceMapper;
 import com.coworking.reservations.space.repository.SpaceRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,7 @@ public class SpaceService {
     private final SpaceRepository spaceRepository;
     private final SpaceMapper spaceMapper;
 
+    @CacheEvict(cacheNames = "occupancyReports", allEntries = true)
     @Transactional
     public SpaceResponse create(CreateSpaceRequest request) {
 
@@ -46,6 +48,7 @@ public class SpaceService {
         return spaceMapper.toResponse(findEntityById(id));
     }
 
+    @CacheEvict(cacheNames = "occupancyReports", allEntries = true)
     @Transactional
     public SpaceResponse update(Long id, UpdateSpaceRequest request) {
 
@@ -67,6 +70,7 @@ public class SpaceService {
         return spaceMapper.toResponse(space);
     }
 
+    @CacheEvict(cacheNames = "occupancyReports", allEntries = true)
     @Transactional
     public void delete(Long id) {
         Space space = findEntityById(id);

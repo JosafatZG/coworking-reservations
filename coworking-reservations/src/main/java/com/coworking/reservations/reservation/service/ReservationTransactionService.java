@@ -14,6 +14,7 @@ import com.coworking.reservations.space.repository.SpaceRepository;
 import com.coworking.reservations.user.entity.Role;
 import com.coworking.reservations.user.entity.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,6 +72,10 @@ public class ReservationTransactionService {
         );
     }
 
+    @CacheEvict(
+            cacheNames = "occupancyReports",
+            allEntries = true
+    )
     @Transactional
     public ReservationResponse confirmReservation(Long reservationId) {
 
@@ -103,11 +108,12 @@ public class ReservationTransactionService {
         return reservationMapper.toResponse(reservation);
     }
 
+    @CacheEvict(
+            cacheNames = "occupancyReports",
+            allEntries = true
+    )
     @Transactional
-    public void cancelReservation(
-            Long reservationId,
-            User user
-    ) {
+    public void cancelReservation(Long reservationId, User user) {
         Reservation reservation = reservationRepository
                 .findByIdForUpdate(reservationId)
                 .orElseThrow(() ->
