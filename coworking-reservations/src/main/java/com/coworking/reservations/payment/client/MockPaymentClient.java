@@ -42,7 +42,7 @@ public class MockPaymentClient implements PaymentClient {
         }
 
         try {
-            Thread.sleep(properties.delay());
+            Thread.sleep(properties.delay().toMillis());
         } catch (InterruptedException exception) {
             Thread.currentThread().interrupt();
             throw new IllegalStateException(

@@ -1,4 +1,4 @@
-package com.coworking.reservations.config.dev;
+package com.coworking.reservations.config.data;
 
 import com.coworking.reservations.space.entity.Space;
 import com.coworking.reservations.space.entity.SpaceType;

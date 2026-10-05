@@ -1,0 +1,47 @@
+services:
+
+  postgres:
+    image: postgres:17-alpine
+    container_name: coworking-postgres
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: coworking
+      POSTGRES_USER: coworking
+      POSTGRES_PASSWORD: coworking
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U coworking -d coworking"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: coworking-api
+    restart: unless-stopped
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+
+      DB_URL: jdbc:postgresql://postgres:5432/coworking
+      DB_USERNAME: coworking
+      DB_PASSWORD: coworking
+
+      JWT_SECRET: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+
+    ports:
+      - "8080:8080"
+
+volumes:
+  postgres_data:

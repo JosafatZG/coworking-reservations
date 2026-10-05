@@ -50,7 +50,7 @@ public class JwtService {
         try {
             extractClaims(token);
             return true;
-        } catch (RuntimeException _) {
+        } catch (RuntimeException e) {
             return false;
         }
     }
