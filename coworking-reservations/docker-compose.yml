@@ -33,12 +33,10 @@ services:
 
     environment:
       SPRING_PROFILES_ACTIVE: prod
-
       DB_URL: jdbc:postgresql://postgres:5432/coworking
       DB_USERNAME: coworking
-      DB_PASSWORD: coworking
-
-      JWT_SECRET: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+      DB_PASSWORD: ${DB_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
 
     ports:
       - "8080:8080"
