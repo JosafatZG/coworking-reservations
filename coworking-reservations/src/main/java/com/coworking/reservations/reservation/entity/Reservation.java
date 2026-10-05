@@ -55,4 +55,8 @@ public class Reservation extends Auditable {
         this.paymentMethod = paymentMethod;
         this.status = ReservationStatus.PENDING_PAYMENT;
     }
+
+    public void cancel() {
+        this.status = ReservationStatus.CANCELLED;
+    }
 }

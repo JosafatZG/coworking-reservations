@@ -12,18 +12,20 @@ import java.util.List;
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
     List<Reservation> findByUserId(Long userId);
+    List<Reservation> findAllByOrderByStartDateTimeAsc();
 
     @Query("""
-            SELECT r
-            FROM Reservation r
-            WHERE r.space.id = :spaceId
-              AND r.status IN :activeStatuses
-              AND r.startDateTime < :endDateTime
-              AND r.endDateTime > :startDateTime
-            """)
+        SELECT r
+        FROM Reservation r
+        WHERE r.space.id = :spaceId
+          AND r.status IN :activeStatuses
+          AND r.startDateTime < :endDateTime
+          AND r.endDateTime > :startDateTime
+        """)
     List<Reservation> findOverlappingReservations(
             @Param("spaceId") Long spaceId,
             @Param("startDateTime") LocalDateTime startDateTime,
             @Param("endDateTime") LocalDateTime endDateTime,
-            @Param("activeStatuses") List<ReservationStatus> activeStatuses);
+            @Param("activeStatuses") List<ReservationStatus> activeStatuses
+    );
 }

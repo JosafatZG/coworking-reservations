@@ -1,5 +1,6 @@
 package com.coworking.reservations.common.exception;
 
+import com.coworking.reservations.reservation.service.InvalidReservationException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
@@ -58,6 +59,22 @@ public class GlobalExceptionHandler {
                         "Validation failed",
                         request.getRequestURI(),
                         errors));
+    }
+
+    @ExceptionHandler(InvalidReservationException.class)
+    public ResponseEntity<ApiError> handleInvalidReservation(
+            InvalidReservationException exception,
+            HttpServletRequest request
+    ) {
+        return ResponseEntity
+                .badRequest()
+                .body(new ApiError(
+                        Instant.now(),
+                        HttpStatus.BAD_REQUEST.value(),
+                        exception.getMessage(),
+                        request.getRequestURI(),
+                        Map.of()
+                ));
     }
 
     public record ApiError(
